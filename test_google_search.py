@@ -10,20 +10,19 @@ negative_search_string='selene sadsDFsdfsdfSDFsdfSDFsdfkl;jkl;jkl;jkl;fyguruyi'
 negative_validation_string = ''
 
 
-@pytest.fixture()
+@pytest.fixture(scope='session', autouse=True)
 def before_all_config():
-    print('before')
     url = 'http://127.0.0.1:4444/wd/hub'
     capabilities = DesiredCapabilities.CHROME.copy()
     capabilities['screenResolution'] = "2560x1440x24"
     capabilities['enableVNC'] = True
     browser.set_driver(webdriver.Remote(url, capabilities))
 
-def test_positive_search(before_all_config):
+def test_positive_search():
     search(positive_search_string,positive_validation_string)
 
 
-def test_negative_search(before_all_config):
+def test_negative_search():
     search(negative_search_string, negative_validation_string)
 
 
